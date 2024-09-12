@@ -34,7 +34,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func SubmitBTN(_ sender: UIButton) {
-        //fi
+
         if let name = nameOutlet?.text, !name.isEmpty {
             if let billAmount = billAmountOutlet?.text, !billAmount.isEmpty, let billAmt = Double(billAmount) {
                 if let tip = tipPercentageOutlet?.text, !tip.isEmpty, let tipPercent = Double(tip) {
