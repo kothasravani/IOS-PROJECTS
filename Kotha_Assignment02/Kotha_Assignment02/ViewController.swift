@@ -36,23 +36,22 @@ class ViewController: UIViewController {
     @IBAction func SubmitBTN(_ sender: UIButton) {
 
         if let name = nameOutlet?.text, !name.isEmpty {
-            if let billAmount = billAmountOutlet?.text, !billAmount.isEmpty, let billAmt = Double(billAmount) {
+if let billAmount = billAmountOutlet?.text, !billAmount.isEmpty, let billAmt = Double(`billAmount`) {
+                let billAmt = billAmt >= 500 ? billAmt - 50 : billAmt
                 if let tip = tipPercentageOutlet?.text, !tip.isEmpty, let tipPercent = Double(tip) {
-                    var tipAmt = 0.0
-                    //if the bill amount is $500 or higher, apply a $50 discount to the bill amount (not the totalbillamount).
-                    if billAmt >= 500{
-                        //Hint: Tip Amount in $ = (Bill Amount * Tip Percentage Value) / 100
-                        tipAmt = ((billAmt - 50) * tipPercent) / 100
-                    }else{
-                        tipAmt = (billAmt * tipPercent) / 100
-                    }
-                    //printing the val
+                    let tipAmt = (billAmt * tipPercent) / 100
+                    //date formatter with current time zone
+                    let date = dateOutlet?.date
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "MM-dd-yyyy hh:mm"
+                    dateFormatter.timeZone = TimeZone(identifier: "America/Missouri")
+                    //by using ? checking for values if avail printing them in result display for name, bill, percentage and tot amount and current date with time zone
                     nameLabel?.text = "Name: " + name
                     billAmountLabel?.text = "Bill Amount: $" + billAmount
                     tipAmountLabel?.text = "Tip Amount: $\(tipAmt)"
                     //compute the tip amount in dollars and calculate the total bill amount(which is the sum of the bill amount and the calculated tip amount
                     totalAmountLabel?.text = "Total Amount: $\(billAmt + tipAmt)"
-                    dateLabel?.text = "09-12-2024 13:24:00"
+                    dateLabel?.text = "\(dateFormatter.string(from: date!))"
                 }
             }
         }
@@ -60,7 +59,7 @@ class ViewController: UIViewController {
     
     
     @IBAction func ResetBTN(_ sender: UIButton) {
-        //once click on reset btn fields should be empty""
+        //once click on reset btn fields should be empty
         nameLabel?.text = ""
         billAmountLabel?.text = ""
         tipAmountLabel?.text = ""
@@ -69,7 +68,8 @@ class ViewController: UIViewController {
         nameOutlet?.text = ""
         billAmountOutlet?.text = ""
         tipPercentageOutlet?.text = ""
+        // Set focus on the name text field
+        nameOutlet?.becomeFirstResponder()
     }
-    
 }
 
