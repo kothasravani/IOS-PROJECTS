@@ -63,7 +63,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let transition = segue.identifier
         if transition == "resultSegue" {
-            var destination = segue.destination
+            let destination = segue.destination
             as! ResultViewController
             destination.contact = contacts[tableViewOL.indexPathForSelectedRow!.row]
         }
